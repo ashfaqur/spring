@@ -52,4 +52,20 @@ public class StudentDAO implements IStudentDAO {
         theQuery.setParameter("theData", lastName);
         return theQuery.getResultList();
     }
+
+    @Override
+    @Transactional
+    public void delete(Integer id){
+        // retrieve the student
+        Student student = entityManager.find(Student.class, id);
+        // delete the student
+        entityManager.remove(student);
+    }
+
+    @Override
+    @Transactional
+    public int deleteAll() {
+        return this.entityManager.createQuery("DELETE FROM Student").executeUpdate();
+
+    }
 }
